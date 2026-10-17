@@ -43,13 +43,25 @@ function App() {
 
   const handleDelete = () => { setStudents(students.filter(s => s.id!== deletingId)); setIsDeleteOpen(false); }; // filter
 
-  const filtered = students.filter(s => s.fullName.toLowerCase().includes(search.toLowerCase()));
+
+const filtered = students.filter(s => {
+  const searchText = search.toLowerCase().trim();
+
+  return (
+    String(s.id).toLowerCase().includes(searchText) ||
+    s.fullName.toLowerCase().includes(searchText) ||
+    s.email.toLowerCase().includes(searchText) ||
+    s.course.toLowerCase().includes(searchText) ||
+    s.status.toLowerCase().includes(searchText)
+  );
+});
+
 
   return (
     <div className="app-container">
       <header className="header">
         <h1>Student Management System</h1>
-        
+        <h3>manage your students efficiently</h3>
       </header>
 
       <div className="stats">
