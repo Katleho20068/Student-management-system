@@ -14,8 +14,8 @@ export default function StudentTable({ students, onEdit, onDelete }) {
               <td>{s.course}</td>
               <td><span className={`status ${s.status}`}>{s.status}</span></td>
               <td>
-                <button className="btn-edit" onClick={()=>onEdit(s)}>Edit</button>
-                <button className="btn-delete" onClick={()=>onDelete(s.id)}>Delete</button>
+                <button className="btn-edit" onClick={() => onEdit(s)} title="Edit">✏️</button>
+                <button className="btn-delete" onClick={() => onDelete(s.id)} title="Delete">🗑️</button>
               </td>
             </tr>
           ))}

@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 export default function StudentModal({ student, onClose, onSave }) {
   const [form, setForm] = useState({
-    fullName: student?.fullName || '', age: student?.age || '', email: student?.email || '',
-    course: student?.course || 'Diploma in IT', status: student?.status || 'Active',
+    fullName: '', age: '', email: '',
+    course: 'Diploma in IT', status: 'Active',
   });
+
+  // THIS FIXES EDIT - updates form when student changes
+  useEffect(() => {
+    if (student) {
+      setForm(student);
+    } else {
+      setForm({ fullName: '', age: '', email: '', course: 'Diploma in IT', status: 'Active' });
+    }
+  }, [student]);
+
   const [errors, setErrors] = useState({});
   const validate = () => {
     const e = {};
@@ -13,6 +23,7 @@ export default function StudentModal({ student, onClose, onSave }) {
     setErrors(e); return Object.keys(e).length === 0;
   };
   const submit = (e) => { e.preventDefault(); if (!validate()) return; onSave({...form, age:Number(form.age)}); };
+  
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={e=>e.stopPropagation()}>
